@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+
 public class User {
     private String username;
     private String password;
 
+    public ArrayList<ToDoItem> toDoItems;
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.toDoItems = new ArrayList<>();
     }
 
     /**
@@ -35,12 +40,6 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-    private ArrayList<ToDoItem> toDoItems;
-
-    public User(String username, String password) {
-        // ... (other initializations)
-        this.toDoItems = new ArrayList<>();
     }
 
     /**

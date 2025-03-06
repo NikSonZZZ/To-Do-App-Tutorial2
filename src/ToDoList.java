@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class ToDoList {
     private User user;
     private boolean isRunning;
@@ -43,19 +45,39 @@ public class ToDoList {
     public void handleMenu(int choice) {
         switch (choice) {
             case 1:
-                onShowAllItems();
+                if (user.getToDoItems().isEmpty()) {
+                    System.out.println("No items to show.");
+                    showMenu();
+                } else {
+                    onShowAllItems();
+                }
                 break;
             case 2:
                 onAddItem();
                 break;
             case 3:
-                onMarkAsDone();
+                if (user.getToDoItems().isEmpty()) {
+                    System.out.println("No items to mark as done.");
+                    showMenu();
+                } else {
+                    onMarkAsDone();
+                }
                 break;
             case 4:
-                onMarkAsUndone();
+                if (user.getToDoItems().isEmpty()) {
+                    System.out.println("No items to mark as undone.");
+                    showMenu();
+                } else {
+                    onMarkAsUndone();
+                }
                 break;
             case 5:
-                onDeleteItem();
+                if (user.getToDoItems().isEmpty()) {
+                    System.out.println("No items to delete.");
+                    showMenu();
+                } else {
+                    onDeleteItem();
+                }
                 break;
             case 6:
                 onExit();
@@ -73,9 +95,9 @@ public class ToDoList {
         for (int i = 0; i < user.getToDoItems().size(); i++) {
             ToDoItem item = user.getToDoItems().get(i);
             if (item.isDone()) {
-                System.out.println(i + ". [X] " + item.getDescription());
+                System.out.println((i + 1) + ". [X] " + item.getDescription());
             } else {
-                System.out.println(i + ". [ ] " + item.getDescription());
+                System.out.println((i + 1) + ". [ ] " + item.getDescription());
             }
         }
     }
@@ -87,7 +109,7 @@ public class ToDoList {
         System.out.print("Enter the description of the item: ");
         Scanner scanner = new Scanner(System.in);
         String description = scanner.nextLine();
-        // TODO Now: Call the add(ToDoItem item) method of the user's to-do items list to add a new item
+        user.toDoItems.add(new ToDoItem(description));
     }
 
     /**
@@ -95,10 +117,23 @@ public class ToDoList {
      */
     public void onMarkAsDone() {
         onShowAllItems();
-        System.out.print("Enter the number of the item to mark as done: ");
         Scanner scanner = new Scanner(System.in);
-        int itemNumber = scanner.nextInt();
-        // TODO Now: Set the isDone field of the item at the specified index to true
+
+        while (true) {
+            System.out.print("Enter the number of the item to mark as done: ");
+            if (scanner.hasNextInt()) {
+                int itemNumber = scanner.nextInt() - 1;
+                if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
+                    user.toDoItems.get(itemNumber).setDone();
+                    break;
+                } else {
+                    System.out.println("Item does not exist. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number");
+                scanner.next();
+            }
+        }
     }
 
     /**
@@ -106,10 +141,23 @@ public class ToDoList {
      */
     public void onMarkAsUndone() {
         onShowAllItems();
-        System.out.print("Enter the number of the item to mark as undone: ");
         Scanner scanner = new Scanner(System.in);
-        int itemNumber = scanner.nextInt();
-        // TODO Now: Set the isDone field of the item at the specified index to false
+
+        while (true) {
+            System.out.print("Enter the number of the item to mark as undone: ");
+            if (scanner.hasNextInt()) {
+                int itemNumber = scanner.nextInt() - 1;
+                if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
+                    user.toDoItems.get(itemNumber).setUndone();
+                    break;
+                } else {
+                    System.out.println("Item does not exist. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number");
+                scanner.next();
+            }
+        }
     }
 
     /**
@@ -117,10 +165,23 @@ public class ToDoList {
      */
     public void onDeleteItem() {
         onShowAllItems();
-        System.out.print("Enter the number of the item to delete: ");
         Scanner scanner = new Scanner(System.in);
-        int itemNumber = scanner.nextInt();
-        // TODO Now: Remove the item at the specified index from the user's to-do items list
+
+        while (true) {
+            System.out.print("Enter the number of the item to delete: ");
+            if (scanner.hasNextInt()) {
+                int itemNumber = scanner.nextInt() - 1;
+                if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
+                    user.toDoItems.remove(itemNumber);
+                    break;
+                } else {
+                    System.out.println("Item does not exist. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number");
+                scanner.next();
+            }
+        }
     }
 
     /**
