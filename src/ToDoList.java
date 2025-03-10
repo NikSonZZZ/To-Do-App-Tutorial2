@@ -5,7 +5,7 @@ public class ToDoList {
     private boolean isRunning;
 
     /**
-     * Initializes the to-do list with the specified user.
+     * Initializes the to-do list for the user.
      * @param user The user of the to-do list.
      */
     public ToDoList(User user) {
@@ -47,7 +47,6 @@ public class ToDoList {
             case 1:
                 if (user.getToDoItems().isEmpty()) {
                     System.out.println("No items to show.");
-                    showMenu();
                 } else {
                     onShowAllItems();
                 }
@@ -58,7 +57,6 @@ public class ToDoList {
             case 3:
                 if (user.getToDoItems().isEmpty()) {
                     System.out.println("No items to mark as done.");
-                    showMenu();
                 } else {
                     onMarkAsDone();
                 }
@@ -66,7 +64,6 @@ public class ToDoList {
             case 4:
                 if (user.getToDoItems().isEmpty()) {
                     System.out.println("No items to mark as undone.");
-                    showMenu();
                 } else {
                     onMarkAsUndone();
                 }
@@ -74,7 +71,6 @@ public class ToDoList {
             case 5:
                 if (user.getToDoItems().isEmpty()) {
                     System.out.println("No items to delete.");
-                    showMenu();
                 } else {
                     onDeleteItem();
                 }
@@ -84,7 +80,6 @@ public class ToDoList {
                 break;
             default:
                 System.out.println("Invalid choice!");
-                showMenu();
         }
     }
 
@@ -109,7 +104,7 @@ public class ToDoList {
         System.out.print("Enter the description of the item: ");
         Scanner scanner = new Scanner(System.in);
         String description = scanner.nextLine();
-        user.toDoItems.add(new ToDoItem(description));
+        user.addItem(description);
     }
 
     /**
@@ -124,7 +119,7 @@ public class ToDoList {
             if (scanner.hasNextInt()) {
                 int itemNumber = scanner.nextInt() - 1;
                 if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
-                    user.toDoItems.get(itemNumber).setDone();
+                    user.setDone(itemNumber);
                     break;
                 } else {
                     System.out.println("Item does not exist. Please try again.");
@@ -148,7 +143,7 @@ public class ToDoList {
             if (scanner.hasNextInt()) {
                 int itemNumber = scanner.nextInt() - 1;
                 if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
-                    user.toDoItems.get(itemNumber).setUndone();
+                    user.setUndone(itemNumber);
                     break;
                 } else {
                     System.out.println("Item does not exist. Please try again.");
@@ -172,7 +167,7 @@ public class ToDoList {
             if (scanner.hasNextInt()) {
                 int itemNumber = scanner.nextInt() - 1;
                 if (itemNumber >= 0 && itemNumber < user.getToDoItems().size()) {
-                    user.toDoItems.remove(itemNumber);
+                    user.removeItem(itemNumber);
                     break;
                 } else {
                     System.out.println("Item does not exist. Please try again.");

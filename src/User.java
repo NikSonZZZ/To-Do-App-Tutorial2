@@ -4,7 +4,7 @@ public class User {
     private String username;
     private String password;
 
-    public ArrayList<ToDoItem> toDoItems;
+    private ArrayList<ToDoItem> toDoItems;
 
     public User(String username, String password) {
         this.username = username;
@@ -48,5 +48,37 @@ public class User {
      */
     public ArrayList<ToDoItem> getToDoItems() {
         return toDoItems;
+    }
+
+    /**
+     * Adds the to-do item to the user list.
+     * @param description The to-do item description.
+     */
+    public void addItem(String description) {
+        toDoItems.add(new ToDoItem(description));
+    }
+
+    /**
+     * Removes the to-do item to the user list.
+     * @param itemNumber The to-do item number.
+     */
+    public void removeItem(int itemNumber) {
+        toDoItems.remove(itemNumber);
+    }
+
+    /**
+     * Sets the to-do item as done.
+     * @param itemNumber The to-do item number.
+     */
+    public void setDone(int itemNumber) {
+        toDoItems.get(itemNumber).setDone();
+    }
+
+    /**
+     * Sets the to-do item as undone.
+     * @param itemNumber The to-do item number.
+     */
+    public void setUndone(int itemNumber) {
+        toDoItems.get(itemNumber).setUndone();
     }
 }

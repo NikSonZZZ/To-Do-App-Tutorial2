@@ -1,14 +1,23 @@
 import java.util.ArrayList;
 
 public class AuthenticationService implements IAuthenticationService {
+    // List of users credentials, acting as a database
     private ArrayList<User> users;
 
-    // TODO Now: Add a constructor to initialize the users list with the default user
+    /**
+     * Initialises the AuthService with empty list.
+     */
     public AuthenticationService() {
         this.users = new ArrayList<>();
-        this.users.add(new User("test", "test"));
     }
-    // TODO Now: Implement the signUp method to add a new user to the list if the username is not taken and return the user; returns null otherwise
+
+    /**
+     * Attempts to register a new user with the provided credentials.
+     * @param username User's username.
+     * @param password User's password.
+     * @return The newly created user;
+     *         null if the username already exists.
+     */
     public User signUp(String username, String password) {
         for (User existingUser : users) {
             if (existingUser.getUsername().equals(username)) {
@@ -20,7 +29,14 @@ public class AuthenticationService implements IAuthenticationService {
         users.add(newUser);
         return newUser;
     }
-    // TODO Now: Implement the logIn method to return the user if the username and password match, and null otherwise
+
+    /**
+     * Attempts to log-in using provided credentials.
+     * @param username User's username.
+     * @param password User's password.
+     * @return The User object if the username and password are correct;
+     *         null if any of the credentials are wrong.
+     */
     public User logIn(String username, String password) {
         for (User existingUser : users) {
             if (existingUser.getUsername().equals(username) && existingUser.getPassword().equals(password)) {
