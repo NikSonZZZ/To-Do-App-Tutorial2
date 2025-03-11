@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+// Hello world
+
 public class Main {
     // Authentication service
     private static IAuthenticationService authService = new AuthenticationService();
